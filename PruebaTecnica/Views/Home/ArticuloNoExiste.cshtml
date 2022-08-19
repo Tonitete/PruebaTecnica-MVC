@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ArticuloNoExiste</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Añadir artículo", "Create")
+    </p>
+    @{ Html.BeginForm();}
+    <p>
+        @Html.TextBox("Buscar")
+        <input type="submit" value="Buscar" />
+    </p>
+    @{ Html.EndForm();}
+    <p>
+        No se ha encontrado ningún artículo que coincida con los términos de busqueda.
+    </p>
+    <p>
+        @Html.ActionLink("Volver", "Index")
+    </p>
+    <div> 
+    </div>
+</body>
+</html>
