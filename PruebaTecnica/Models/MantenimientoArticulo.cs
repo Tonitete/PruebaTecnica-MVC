@@ -21,17 +21,17 @@ namespace PruebaTecnica.Models
         public int Alta(Articulo art)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("insert into articulos(codigo,nombre,precio,descripcion,familia) values (@codigo,@nombre,@precio,@descripcion,@familia)", con);
-            comando.Parameters.Add("@codigo", SqlDbType.Int);
-            comando.Parameters.Add("@nombre", SqlDbType.VarChar);
-            comando.Parameters.Add("@precio", SqlDbType.Float);
-            comando.Parameters.Add("@descripcion", SqlDbType.VarChar);
-            comando.Parameters.Add("@familia", SqlDbType.VarChar);
-            comando.Parameters["@codigo"].Value = art.Codigo;
-            comando.Parameters["@nombre"].Value = art.Nombre;
-            comando.Parameters["@precio"].Value = art.Precio;
-            comando.Parameters["@descripcion"].Value = art.Descripcion;
-            comando.Parameters["@familia"].Value = art.Familia;
+            SqlCommand comando = new SqlCommand("insert into Articulos(Id,Nombre,Precio,Descripcion,Familia) values (@Id,@Nombre,@Precio,@Descripcion,@Familia)", con);
+            comando.Parameters.Add("@Id", SqlDbType.Int);
+            comando.Parameters.Add("@Nombre", SqlDbType.VarChar);
+            comando.Parameters.Add("@Precio", SqlDbType.Float);
+            comando.Parameters.Add("@Descripcion", SqlDbType.VarChar);
+            comando.Parameters.Add("@Familia", SqlDbType.VarChar);
+            comando.Parameters["@Id"].Value = art.Codigo;
+            comando.Parameters["@Nombre"].Value = art.Nombre;
+            comando.Parameters["@Precio"].Value = art.Precio;
+            comando.Parameters["@Descripcion"].Value = art.Descripcion;
+            comando.Parameters["@Familia"].Value = art.Familia;
             con.Open();
             int i = comando.ExecuteNonQuery();
             con.Close();
@@ -42,18 +42,18 @@ namespace PruebaTecnica.Models
             Conectar();
             List<Articulo> articulos = new List<Articulo>();
 
-            SqlCommand com = new SqlCommand("select codigo,nombre,precio,descripcion,familia from articulos", con);
+            SqlCommand com = new SqlCommand("select Id,Nombre,Precio,Descripcion,Familia from Articulos", con);
             con.Open();
             SqlDataReader registros = com.ExecuteReader();
             while (registros.Read())
             {
                 Articulo art = new Articulo
                 {
-                    Codigo = int.Parse(registros["codigo"].ToString()),
-                    Nombre = registros["nombre"].ToString(),
-                    Precio = float.Parse(registros["precio"].ToString()),
-                    Descripcion = registros["descripcion"].ToString(),
-                    Familia = registros["familia"].ToString()
+                    Codigo = int.Parse(registros["Id"].ToString()),
+                    Nombre = registros["Nombre"].ToString(),
+                    Precio = float.Parse(registros["Precio"].ToString()),
+                    Descripcion = registros["Descripcion"].ToString(),
+                    Familia = registros["Familia"].ToString()
                 };
                 articulos.Add(art);
             }
@@ -61,22 +61,22 @@ namespace PruebaTecnica.Models
             return articulos;
         }
 
-        public Articulo Recuperar(int codigo)
+        public Articulo Recuperar(int Id)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("select codigo,nombre,precio,descripcion,familia from articulos where codigo=@codigo", con);
-            comando.Parameters.Add("@codigo", SqlDbType.Int);
-            comando.Parameters["@codigo"].Value = codigo;
+            SqlCommand comando = new SqlCommand("select Id,Nombre,Precio,Descripcion,Familia from Articulos where Id=@Id", con);
+            comando.Parameters.Add("@Id", SqlDbType.Int);
+            comando.Parameters["@Id"].Value = Id;
             con.Open();
             SqlDataReader registros = comando.ExecuteReader();
             Articulo articulo = new Articulo();
             if (registros.Read())
             {
-                articulo.Codigo = int.Parse(registros["codigo"].ToString());
-                articulo.Nombre = registros["nombre"].ToString();
-                articulo.Precio = float.Parse(registros["precio"].ToString());
-                articulo.Descripcion = registros["descripcion"].ToString();
-                articulo.Familia = registros["familia"].ToString();
+                articulo.Codigo = int.Parse(registros["Id"].ToString());
+                articulo.Nombre = registros["Nombre"].ToString();
+                articulo.Precio = float.Parse(registros["Precio"].ToString());
+                articulo.Descripcion = registros["Descripcion"].ToString();
+                articulo.Familia = registros["Familia"].ToString();
             }
             con.Close();
             return articulo;
@@ -84,29 +84,29 @@ namespace PruebaTecnica.Models
         public int Modificar(Articulo art)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("update articulos set nombre=@nombre,precio=@precio,descripcion=@descripcion,familia=@familia where codigo=@codigo", con);
-            comando.Parameters.Add("@codigo", SqlDbType.Int);
-            comando.Parameters.Add("@nombre", SqlDbType.VarChar);
-            comando.Parameters.Add("@precio", SqlDbType.Float);
-            comando.Parameters.Add("@descripcion", SqlDbType.VarChar);
-            comando.Parameters.Add("@familia", SqlDbType.VarChar);
-            comando.Parameters["@codigo"].Value = art.Codigo;
-            comando.Parameters["@nombre"].Value = art.Nombre;
-            comando.Parameters["@precio"].Value = art.Precio;
-            comando.Parameters["@descripcion"].Value = art.Descripcion;
-            comando.Parameters["@familia"].Value = art.Familia;
+            SqlCommand comando = new SqlCommand("update Articulos set Nombre=@Nombre,Precio=@Precio,Descripcion=@Descripcion,Familia=@Familia where Id=@Id", con);
+            comando.Parameters.Add("@Id", SqlDbType.Int);
+            comando.Parameters.Add("@Nombre", SqlDbType.VarChar);
+            comando.Parameters.Add("@Precio", SqlDbType.Float);
+            comando.Parameters.Add("@Descripcion", SqlDbType.VarChar);
+            comando.Parameters.Add("@Familia", SqlDbType.VarChar);
+            comando.Parameters["@Id"].Value = art.Codigo;
+            comando.Parameters["@Nombre"].Value = art.Nombre;
+            comando.Parameters["@Precio"].Value = art.Precio;
+            comando.Parameters["@Descripcion"].Value = art.Descripcion;
+            comando.Parameters["@Familia"].Value = art.Familia;
             con.Open();
             int i = comando.ExecuteNonQuery();
             con.Close();
             return i;
 
         }
-        public int Borrar(int codigo)
+        public int Borrar(int Id)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("delete from articulos where codigo=@codigo", con);
-            comando.Parameters.Add("@codigo", SqlDbType.Int);
-            comando.Parameters["@codigo"].Value = codigo;
+            SqlCommand comando = new SqlCommand("delete from Articulos where Id=@Id", con);
+            comando.Parameters.Add("@Id", SqlDbType.Int);
+            comando.Parameters["@Id"].Value = Id;
             con.Open();
             int i = comando.ExecuteNonQuery();
             con.Close();
@@ -117,20 +117,20 @@ namespace PruebaTecnica.Models
             Conectar();
             List<Articulo> articulos = new List<Articulo>();
 
-            SqlCommand com = new SqlCommand("select codigo,nombre,precio,descripcion,familia from articulos", con);
+            SqlCommand com = new SqlCommand("select Id,Nombre,Precio,Descripcion,Familia from Articulos", con);
             con.Open();
             SqlDataReader registros = com.ExecuteReader();
             while (registros.Read())
             {
-                if (registros["nombre"].ToString().ToLower().Contains(texto.ToLower()) || registros["descripcion"].ToString().ToLower().Contains(texto.ToLower()))
+                if (registros["Nombre"].ToString().ToLower().Contains(texto.ToLower()) || registros["Descripcion"].ToString().ToLower().Contains(texto.ToLower()))
                 {
                     Articulo art = new Articulo
                     {
-                        Codigo = int.Parse(registros["codigo"].ToString()),
-                        Nombre = registros["nombre"].ToString(),
-                        Precio = float.Parse(registros["precio"].ToString()),
-                        Descripcion = registros["descripcion"].ToString(),
-                        Familia = registros["familia"].ToString()
+                        Codigo = int.Parse(registros["Id"].ToString()),
+                        Nombre = registros["Nombre"].ToString(),
+                        Precio = float.Parse(registros["Precio"].ToString()),
+                        Descripcion = registros["Descripcion"].ToString(),
+                        Familia = registros["Familia"].ToString()
                     };
                     articulos.Add(art);
                 }
